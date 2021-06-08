@@ -10,7 +10,7 @@ steps:
     - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
       displayName: 'ESRP signing installer'
       inputs:
-          ConnectedServiceName: 'ESRP Code Signing'
+          ConnectedServiceName: 'ESRP Code Signing (May 2021)'
           FolderPath: '$(System.DefaultWorkingDirectory)/signing-in-progress/${{ parameters.signedArtifactName }}/packed'
           Pattern: ${{ parameters.filePattern }}
           signConfigType: inlineSignParams
