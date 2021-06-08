@@ -33,7 +33,7 @@ jobs:
           - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
             displayName: 'sign dist/detachedSignature'
             inputs:
-                ConnectedServiceName: 'ESRP Code Signing'
+                ConnectedServiceName: 'ESRP Code Signing (May 2021)'
                 FolderPath: '$(System.DefaultWorkingDirectory)/detachedSignature'
                 Pattern: '*.AppImage'
                 signConfigType: inlineSignParams
