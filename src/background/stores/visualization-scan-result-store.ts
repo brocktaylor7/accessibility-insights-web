@@ -13,6 +13,7 @@ import {
     AddTabbedElementPayload,
     AddTabStopInstancePayload,
     RemoveTabStopInstancePayload,
+    ToggleTabStopRequirementExpandPayload,
     UpdateTabStopInstancePayload,
     UpdateTabStopRequirementStatusPayload,
 } from '../actions/action-payloads';
@@ -40,8 +41,12 @@ export class VisualizationScanResultStore extends BaseStoreImpl<VisualizationSca
         const requirements = {};
         for (const id of TabStopRequirementIds) {
             requirements[id] = {
-                status: 'unknown',
-                instances: [],
+                // TODO: REVERT
+                // status: 'unknown',
+                // instances: [],
+                status: 'fail',
+                instances: [{ description: 'test desc', id: 'test-id' }],
+                isExpanded: false,
             };
         }
         const state: Partial<VisualizationScanResultData> = {
@@ -81,6 +86,9 @@ export class VisualizationScanResultStore extends BaseStoreImpl<VisualizationSca
         );
         this.visualizationScanResultsActions.removeTabStopInstance.addListener(
             this.onRemoveTabStopInstance,
+        );
+        this.visualizationScanResultsActions.toggleTabStopRequirementExpandCollapse.addListener(
+            this.onToggleTabStopRequirementExpandCollapse,
         );
         this.tabActions.existingTabUpdated.addListener(this.onExistingTabUpdated);
     }
@@ -157,6 +165,17 @@ export class VisualizationScanResultStore extends BaseStoreImpl<VisualizationSca
             instance => instance.id !== id,
         );
         this.state.tabStops.requirements[requirementId].instances = newInstances;
+        this.emitChanged();
+    };
+
+    private onToggleTabStopRequirementExpandCollapse = (
+        payload: ToggleTabStopRequirementExpandPayload,
+    ): void => {
+        const { requirementId } = payload;
+        console.log(requirementId);
+        const requirement = this.state.tabStops.requirements[requirementId];
+        requirement.isExpanded = !requirement.isExpanded;
+        console.log(requirement);
         this.emitChanged();
     };
 

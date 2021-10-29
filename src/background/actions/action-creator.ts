@@ -27,6 +27,7 @@ import {
     OnDetailsViewPivotSelected,
     RescanVisualizationPayload,
     ToggleActionPayload,
+    ToggleTabStopRequirementExpandPayload,
     VisualizationTogglePayload,
 } from './action-payloads';
 import { InspectActions } from './inspect-actions';
@@ -102,6 +103,10 @@ export class ActionCreator {
         this.interpreter.registerTypeToPayloadCallback(
             visualizationMessages.TabStops.TabbedElementAdded,
             this.onTabbedElementAdded,
+        );
+        this.interpreter.registerTypeToPayloadCallback(
+            visualizationMessages.TabStops.RequirementExpansionToggled,
+            this.onRequirementExpansionToggled,
         );
         this.interpreter.registerTypeToPayloadCallback(
             visualizationMessages.TabStops.RecordingCompleted,
@@ -233,6 +238,12 @@ export class ActionCreator {
 
     private onTabbedElementAdded = (payload: AddTabbedElementPayload): void => {
         this.visualizationScanResultActions.addTabbedElement.invoke(payload);
+    };
+
+    private onRequirementExpansionToggled = (
+        payload: ToggleTabStopRequirementExpandPayload,
+    ): void => {
+        this.visualizationScanResultActions.toggleTabStopRequirementExpandCollapse.invoke(payload);
     };
 
     private onRecordingCompleted = (payload: BaseActionPayload): void => {

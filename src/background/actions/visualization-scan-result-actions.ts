@@ -6,6 +6,7 @@ import {
     AddTabbedElementPayload,
     AddTabStopInstancePayload,
     RemoveTabStopInstancePayload,
+    ToggleTabStopRequirementExpandPayload,
     UpdateTabStopInstancePayload,
     UpdateTabStopRequirementStatusPayload,
 } from './action-payloads';
@@ -21,4 +22,6 @@ export class VisualizationScanResultActions {
     public readonly addTabStopInstance = new Action<AddTabStopInstancePayload>();
     public readonly updateTabStopInstance = new Action<UpdateTabStopInstancePayload>();
     public readonly removeTabStopInstance = new Action<RemoveTabStopInstancePayload>();
+    public readonly toggleTabStopRequirementExpandCollapse =
+        new Action<ToggleTabStopRequirementExpandPayload>();
 }

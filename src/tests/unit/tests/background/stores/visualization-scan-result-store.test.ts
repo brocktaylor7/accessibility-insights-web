@@ -417,6 +417,7 @@ describe('VisualizationScanResultStoreTest', () => {
             'keyboard-navigation': {
                 status: 'pass',
                 instances: [],
+                isExpanded: false,
             },
         };
 
@@ -441,6 +442,7 @@ describe('VisualizationScanResultStoreTest', () => {
             'keyboard-navigation': {
                 status: 'unknown',
                 instances: [{ description: 'test1', id: 'abc' }],
+                isExpanded: false,
             },
         };
 
@@ -467,6 +469,7 @@ describe('VisualizationScanResultStoreTest', () => {
                     { description: 'test1', id: 'abc' },
                     { description: 'test3', id: 'xyz' },
                 ],
+                isExpanded: false,
             },
         };
 
@@ -500,6 +503,7 @@ describe('VisualizationScanResultStoreTest', () => {
                     { description: 'test1', id: 'abc' },
                     { description: 'test3', id: 'xyz' },
                 ],
+                isExpanded: false,
             },
         };
 

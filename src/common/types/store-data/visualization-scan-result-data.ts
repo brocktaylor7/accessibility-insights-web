@@ -26,6 +26,7 @@ export type TabStopRequirementState = {
             description: string;
             id: string;
         }[];
+        isExpanded: boolean;
     };
 };
 

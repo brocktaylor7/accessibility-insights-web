@@ -26,6 +26,7 @@ export class SummaryReportHtmlGenerator {
         const detailsProps: SummaryReportSectionProps = {
             deps: {
                 collapsibleControl: ReportCollapsibleContainerControl,
+                cardSelectionMessageCreator: null,
             },
             scanMetadata,
             results,

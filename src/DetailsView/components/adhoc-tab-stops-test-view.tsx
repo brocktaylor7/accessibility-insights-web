@@ -1,11 +1,21 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
+import { ResultSectionDeps } from 'common/components/cards/result-section';
 import { NamedFC } from 'common/react/named-fc';
+import { VisualizationScanResultData } from 'common/types/store-data/visualization-scan-result-data';
+
 import { RequirementInstructions } from 'DetailsView/components/requirement-instructions';
+import { TabStopsFailedInstanceSection } from 'DetailsView/components/tab-stops-failed-instance-section';
+
 import * as React from 'react';
 
-export interface AdhocTabStopsTestViewProps {}
+export type AdhocTabStopsTestViewDeps = ResultSectionDeps;
+
+export interface AdhocTabStopsTestViewProps {
+    deps: AdhocTabStopsTestViewDeps;
+    visualizationScanResultData: VisualizationScanResultData;
+}
 
 const howToTest: JSX.Element = (
     <ol>
@@ -25,9 +35,15 @@ const howToTest: JSX.Element = (
         </li>
     </ol>
 );
+
 export const AdhocTabStopsTestView = NamedFC<AdhocTabStopsTestViewProps>(
     'AdhocTabStopsTestView',
-    () => {
-        return <RequirementInstructions howToTest={howToTest} />;
+    props => {
+        return (
+            <>
+                <RequirementInstructions howToTest={howToTest} />
+                <TabStopsFailedInstanceSection {...props} />
+            </>
+        );
     },
 );

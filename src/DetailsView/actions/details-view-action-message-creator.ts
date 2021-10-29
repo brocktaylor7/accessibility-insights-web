@@ -20,6 +20,7 @@ import {
     SwitchToTargetTabPayload,
     ToggleActionPayload,
     LoadAssessmentPayload,
+    ToggleTabStopRequirementExpandPayload,
 } from 'background/actions/action-payloads';
 import { FeatureFlagPayload } from 'background/actions/feature-flag-actions';
 import * as TelemetryEvents from 'common/extension-telemetry-events';
@@ -672,5 +673,19 @@ export class DetailsViewActionMessageCreator extends DevToolActionMessageCreator
             TelemetryEvents.LEFT_NAV_PANEL_EXPANDED,
             this.telemetryFactory.forLeftNavPanelExpanded(event),
         );
+    };
+
+    public toggleTabStopRequirementExpand = (
+        requirementId: string,
+        event: React.SyntheticEvent,
+    ) => {
+        const payload: ToggleTabStopRequirementExpandPayload = {
+            requirementId,
+        };
+
+        this.dispatcher.dispatchMessage({
+            messageType: Messages.Visualizations.TabStops.RequirementExpansionToggled,
+            payload,
+        });
     };
 }

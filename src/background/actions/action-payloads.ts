@@ -139,6 +139,10 @@ export interface RemoveTabStopInstancePayload extends BaseActionPayload {
     id: string;
     requirementId: TabStopRequirementId;
 }
+
+export interface ToggleTabStopRequirementExpandPayload extends BaseActionPayload {
+    requirementId: string;
+}
 export interface AddTabStopInstancePayload extends BaseActionPayload {
     requirementId: TabStopRequirementId;
     description: string;
