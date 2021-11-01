@@ -37,6 +37,16 @@ export class VisualizationScanResultStore extends BaseStoreImpl<VisualizationSca
         this.generateUID = generateUID;
     }
 
+    private getTestId = max => {
+        const randNum = Math.floor(Math.random() * max);
+        return 'test-id-' + randNum;
+    };
+
+    private getTestDesc = max => {
+        const randNum = Math.floor(Math.random() * max);
+        return 'test desc ' + randNum;
+    };
+
     public getDefaultState(): VisualizationScanResultData {
         const requirements = {};
         for (const id of TabStopRequirementIds) {
@@ -45,7 +55,10 @@ export class VisualizationScanResultStore extends BaseStoreImpl<VisualizationSca
                 // status: 'unknown',
                 // instances: [],
                 status: 'fail',
-                instances: [{ description: 'test desc', id: 'test-id' }],
+                instances: [
+                    { description: this.getTestDesc(9), id: this.getTestId(9) },
+                    { description: this.getTestDesc(9), id: this.getTestId(9) },
+                ],
                 isExpanded: false,
             };
         }

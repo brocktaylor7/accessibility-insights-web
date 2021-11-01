@@ -44,8 +44,8 @@ export const TabStopsRulesWithInstances = NamedFC<TabStopsRulesWithInstancesProp
                 header: <TabStopsMinimalRuleHeader key={result.id} requirement={result} />,
                 content: (
                     <TabStopsRequirementInstancesCollapsibleContent
-                        key={`${result.id}-rule-group`}
-                        requirement={result}
+                        key={`${result.id}-requirement-group`}
+                        instances={result.instances}
                     />
                 ),
                 containerAutomationId: resultsGroupAutomationId,

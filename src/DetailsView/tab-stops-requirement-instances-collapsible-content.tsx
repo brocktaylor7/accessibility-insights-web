@@ -1,20 +1,93 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 import { NamedFC } from 'common/react/named-fc';
-import { TabStopsRequirementResult } from 'DetailsView/tab-stops-requirement-result';
+import { AssessmentInstanceDetailsColumn } from 'DetailsView/components/assessment-instance-details-column';
+import { TabStopsRequirementResultInstance } from 'DetailsView/tab-stops-requirement-result';
+import {
+    CheckboxVisibility,
+    ColumnActionsMode,
+    ConstrainMode,
+    DetailsList,
+    IColumn,
+    Icon,
+    IDetailsHeaderProps,
+    Link,
+} from 'office-ui-fabric-react';
 import * as React from 'react';
+import * as styles from './tab-stops-requirement-instances-collapsible-content.scss';
 
 export type TabStopsRequirementInstancesCollapsibleContentProps = {
-    requirement: TabStopsRequirementResult;
+    instances: TabStopsRequirementResultInstance[];
 };
 export const TabStopsRequirementInstancesCollapsibleContent =
     NamedFC<TabStopsRequirementInstancesCollapsibleContentProps>(
         'TabStopsRequirementInstancesCollapsibleContent',
         props => {
+            const onRenderCapturedInstanceDetailsColumn = (
+                instance: TabStopsRequirementResultInstance,
+            ): JSX.Element => {
+                return (
+                    <AssessmentInstanceDetailsColumn
+                        background={'#767676'}
+                        textContent={instance.description}
+                        headerText={'Comment:'}
+                        tooltipId={instance.id}
+                        customClassName="not-applicable"
+                    />
+                );
+            };
+
+            const onRenderCapturedInstanceIconsColumn = (
+                instance: TabStopsRequirementResultInstance,
+            ): JSX.Element => {
+                return (
+                    <>
+                        <Link className={styles.editButton} onClick={() => {}}>
+                            <Icon iconName="edit" ariaLabel={'edit instance'} />
+                        </Link>
+                        <Link className={styles.removeButton} onClick={() => {}}>
+                            <Icon iconName="delete" ariaLabel={'delete instance'} />
+                        </Link>
+                    </>
+                );
+            };
+
+            const columns: IColumn[] = [
+                {
+                    key: 'failureDescription',
+                    name: 'Failure description',
+                    fieldName: 'description',
+                    minWidth: 200,
+                    maxWidth: 400,
+                    isResizable: true,
+                    onRender: onRenderCapturedInstanceDetailsColumn,
+                    columnActionsMode: ColumnActionsMode.disabled,
+                },
+                {
+                    key: 'instanceActionButtons',
+                    name: 'instance actions',
+                    isIconOnly: true,
+                    fieldName: 'instanceActionButtons',
+                    minWidth: 100,
+                    maxWidth: 100,
+                    isResizable: false,
+                    onRender: onRenderCapturedInstanceIconsColumn,
+                    columnActionsMode: ColumnActionsMode.disabled,
+                },
+            ];
+
+            const renderEmptyDetailsHeader = (detailsHeaderProps: IDetailsHeaderProps) => {
+                return null;
+            };
+
             return (
-                <div>
-                    {props.requirement.id} {props.requirement.instances[0].id}
-                </div>
+                <DetailsList
+                    items={props.instances}
+                    columns={columns}
+                    checkboxVisibility={CheckboxVisibility.hidden}
+                    constrainMode={ConstrainMode.horizontalConstrained}
+                    onRenderDetailsHeader={renderEmptyDetailsHeader}
+                />
             );
         },
     );
