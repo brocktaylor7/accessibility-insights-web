@@ -7,12 +7,12 @@ import * as React from 'react';
 import { OutcomeChip } from 'reports/components/outcome-chip';
 import { outcomeChipContainer } from 'reports/components/report-sections/minimal-rule-header.scss';
 
-export type TabStopsMinimalRuleHeaderProps = {
+export type TabStopsMinimalRequirementHeaderProps = {
     requirement: TabStopsRequirementResult;
 };
 
-export const TabStopsMinimalRuleHeader = NamedFC<TabStopsMinimalRuleHeaderProps>(
-    'TabStopsMinimalRuleHeader',
+export const TabStopsMinimalRequirementHeader = NamedFC<TabStopsMinimalRequirementHeaderProps>(
+    'TabStopsMinimalRequirementHeader',
     props => {
         const { requirement } = props;
 

@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabStopsRequirementsWithInstances renders 1`] = `
+<div
+  className="ruleDetailsGroup"
+>
+  <CollapsibleControlStub
+    buttonAriaLabel="test-requirement-1 1 Failed test requirement description 1"
+    containerAutomationId="tab-stops-results-group"
+    containerClassName="collapsibleRuleDetailsGroup"
+    content={
+      <TabStopsRequirementInstancesCollapsibleContent
+        instances={
+          Array [
+            Object {
+              "description": "test desc 1",
+              "id": "test-id-1",
+            },
+          ]
+        }
+      />
+    }
+    deps={
+      Object {
+        "collapsibleControl": [Function],
+      }
+    }
+    header={
+      <TabStopsMinimalRequirementHeader
+        requirement={
+          Object {
+            "description": "test requirement description 1",
+            "id": "test-requirement-1",
+            "instances": Array [
+              Object {
+                "description": "test desc 1",
+                "id": "test-id-1",
+              },
+            ],
+            "isExpanded": false,
+            "name": "test requirement name 1",
+          }
+        }
+      />
+    }
+    headingLevel={3}
+    id="test-requirement-1"
+    isExpanded={false}
+    onExpandToggle={[Function]}
+  />
+  <CollapsibleControlStub
+    buttonAriaLabel="test-requirement-2 1 Failed test requirement description 2"
+    containerAutomationId="tab-stops-results-group"
+    containerClassName="collapsibleRuleDetailsGroup"
+    content={
+      <TabStopsRequirementInstancesCollapsibleContent
+        instances={
+          Array [
+            Object {
+              "description": "test desc 2",
+              "id": "test-id-2",
+            },
+          ]
+        }
+      />
+    }
+    deps={
+      Object {
+        "collapsibleControl": [Function],
+      }
+    }
+    header={
+      <TabStopsMinimalRequirementHeader
+        requirement={
+          Object {
+            "description": "test requirement description 2",
+            "id": "test-requirement-2",
+            "instances": Array [
+              Object {
+                "description": "test desc 2",
+                "id": "test-id-2",
+              },
+            ],
+            "isExpanded": false,
+            "name": "test requirement name 2",
+          }
+        }
+      />
+    }
+    headingLevel={3}
+    id="test-requirement-2"
+    isExpanded={false}
+    onExpandToggle={[Function]}
+  />
+</div>
+`;

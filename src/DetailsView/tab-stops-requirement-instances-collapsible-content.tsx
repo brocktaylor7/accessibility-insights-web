@@ -10,7 +10,6 @@ import {
     DetailsList,
     IColumn,
     Icon,
-    IDetailsHeaderProps,
     Link,
 } from 'office-ui-fabric-react';
 import * as React from 'react';
@@ -32,7 +31,6 @@ export const TabStopsRequirementInstancesCollapsibleContent =
                         textContent={instance.description}
                         headerText={'Comment:'}
                         tooltipId={instance.id}
-                        customClassName="not-applicable"
                     />
                 );
             };
@@ -76,17 +74,13 @@ export const TabStopsRequirementInstancesCollapsibleContent =
                 },
             ];
 
-            const renderEmptyDetailsHeader = (detailsHeaderProps: IDetailsHeaderProps) => {
-                return null;
-            };
-
             return (
                 <DetailsList
                     items={props.instances}
                     columns={columns}
                     checkboxVisibility={CheckboxVisibility.hidden}
                     constrainMode={ConstrainMode.horizontalConstrained}
-                    onRenderDetailsHeader={renderEmptyDetailsHeader}
+                    onRenderDetailsHeader={() => null}
                 />
             );
         },

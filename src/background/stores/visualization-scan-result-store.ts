@@ -56,8 +56,8 @@ export class VisualizationScanResultStore extends BaseStoreImpl<VisualizationSca
                 // instances: [],
                 status: 'fail',
                 instances: [
-                    { description: this.getTestDesc(9), id: this.getTestId(9) },
-                    { description: this.getTestDesc(9), id: this.getTestId(9) },
+                    { description: this.getTestDesc(9), id: this.getTestId(1000) },
+                    { description: this.getTestDesc(9), id: this.getTestId(1000) },
                 ],
                 isExpanded: false,
             };

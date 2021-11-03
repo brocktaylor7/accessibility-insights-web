@@ -3,20 +3,19 @@
 
 import { TabStopsRequirementResult } from 'DetailsView/tab-stops-requirement-result';
 
-const getFailedByRequirementId = (results: TabStopsRequirementResult[], requirementId: string) => {
-    return (
-        results.filter(requirement => {
-            return requirement.id === requirementId;
-        })[0].instances.length ?? 0
-    );
+const getFailedByRequirementId = (
+    results: TabStopsRequirementResult[],
+    requirementId: string,
+): number => {
+    return results.reduce((total, result) => {
+        return result.id === requirementId ? total + result.instances.length : total;
+    }, 0);
 };
 
-const getTotalFailed = (results: TabStopsRequirementResult[]) => {
-    let count = 0;
-    results.forEach(requirement => {
-        count += requirement.instances.length;
-    });
-    return count;
+const getTotalFailed = (results: TabStopsRequirementResult[]): number => {
+    return results.reduce((total, result) => {
+        return total + result.instances.length;
+    }, 0);
 };
 
 export const TabStopsFailedCounter = {

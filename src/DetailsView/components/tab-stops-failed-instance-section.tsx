@@ -10,15 +10,15 @@ import { requirements } from 'DetailsView/components/tab-stops/requirements';
 import { TabStopsFailedCounter } from 'DetailsView/tab-stops-failed-counter';
 import { TabStopsRequirementResult } from 'DetailsView/tab-stops-requirement-result';
 import {
-    TabStopsRulesWithInstances,
-    TabStopsRulesWithInstancesDeps,
-} from 'DetailsView/tab-stops-rules-with-instances';
+    TabStopsRequirementsWithInstances,
+    TabStopsRequirementsWithInstancesDeps,
+} from 'DetailsView/tab-stops-requirements-with-instances';
 import * as React from 'react';
 import * as styles from './tab-stops-failed-instance-section.scss';
 
 export type TabStopsFailedInstanceSectionDeps = AdhocTabStopsTestViewDeps &
     CollapsibleComponentCardsDeps &
-    TabStopsRulesWithInstancesDeps;
+    TabStopsRequirementsWithInstancesDeps;
 
 export interface TabStopsFailedInstanceSectionProps {
     deps: TabStopsFailedInstanceSectionDeps;
@@ -29,11 +29,11 @@ export const tabStopsFailedInstanceSectionAutomationId = 'tab-stops-failure-inst
 
 export class TabStopsFailedInstanceSection extends React.Component<TabStopsFailedInstanceSectionProps> {
     private getTabStopRequirementsResults = (): TabStopsRequirementResult[] => {
-        const result = [];
+        const results = [];
         const storeData = this.props.visualizationScanResultData;
         for (const [requirementId, data] of Object.entries(storeData.tabStops.requirements)) {
             if (data.status === 'fail') {
-                result.push({
+                results.push({
                     id: requirementId,
                     name: requirements[requirementId].name,
                     description: requirements[requirementId].description,
@@ -42,11 +42,16 @@ export class TabStopsFailedInstanceSection extends React.Component<TabStopsFaile
                 });
             }
         }
-        return result;
+        return results;
     };
 
     public render(): JSX.Element {
         const results = this.getTabStopRequirementsResults();
+
+        if (results.length === 0) {
+            return null;
+        }
+
         return (
             <div
                 className={css(null, styles.tabStopsFailureInstanceSection)}
@@ -60,7 +65,7 @@ export class TabStopsFailedInstanceSection extends React.Component<TabStopsFaile
                         titleSize="title"
                     />
                 </h2>
-                <TabStopsRulesWithInstances
+                <TabStopsRequirementsWithInstances
                     results={results}
                     headingLevel={3}
                     outcomeType="fail"

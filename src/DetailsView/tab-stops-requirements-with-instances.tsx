@@ -7,31 +7,29 @@ import {
 import { NamedFC } from 'common/react/named-fc';
 import { DetailsViewActionMessageCreator } from 'DetailsView/actions/details-view-action-message-creator';
 import { TabStopsFailedCounter } from 'DetailsView/tab-stops-failed-counter';
-import { TabStopsMinimalRuleHeader } from 'DetailsView/tab-stops-minimal-rule-header';
+import { TabStopsMinimalRequirementHeader } from 'DetailsView/tab-stops-minimal-requirement-header';
 import { TabStopsRequirementInstancesCollapsibleContent } from 'DetailsView/tab-stops-requirement-instances-collapsible-content';
 import { TabStopsRequirementResult } from 'DetailsView/tab-stops-requirement-result';
 import * as React from 'react';
-import { InstanceOutcomeType } from 'reports/components/instance-outcome-type';
 import { outcomeTypeSemantics } from 'reports/components/outcome-type';
 
-import * as styles from './tab-stops-rules-with-instances.scss';
+import * as styles from './tab-stops-requirements-with-instances.scss';
 
 export const resultsGroupAutomationId = 'tab-stops-results-group';
 
-export type TabStopsRulesWithInstancesDeps = CollapsibleComponentCardsDeps & {
+export type TabStopsRequirementsWithInstancesDeps = CollapsibleComponentCardsDeps & {
     collapsibleControl: (props: CollapsibleComponentCardsProps) => JSX.Element;
     detailsViewActionMessageCreator: DetailsViewActionMessageCreator;
 };
 
-export type TabStopsRulesWithInstancesProps = {
-    deps: TabStopsRulesWithInstancesDeps;
+export type TabStopsRequirementsWithInstancesProps = {
+    deps: TabStopsRequirementsWithInstancesDeps;
     results: TabStopsRequirementResult[];
-    outcomeType: InstanceOutcomeType;
     headingLevel: number;
 };
 
-export const TabStopsRulesWithInstances = NamedFC<TabStopsRulesWithInstancesProps>(
-    'TabStopsRulesWithInstances',
+export const TabStopsRequirementsWithInstances = NamedFC<TabStopsRequirementsWithInstancesProps>(
+    'TabStopsRequirementsWithInstances',
     ({ results, deps, headingLevel }) => {
         const getCollapsibleComponentProps = (
             result: TabStopsRequirementResult,
@@ -41,7 +39,7 @@ export const TabStopsRulesWithInstances = NamedFC<TabStopsRulesWithInstancesProp
             return {
                 id: result.id,
                 key: `summary-details-${idx + 1}`,
-                header: <TabStopsMinimalRuleHeader key={result.id} requirement={result} />,
+                header: <TabStopsMinimalRequirementHeader key={result.id} requirement={result} />,
                 content: (
                     <TabStopsRequirementInstancesCollapsibleContent
                         key={`${result.id}-requirement-group`}
