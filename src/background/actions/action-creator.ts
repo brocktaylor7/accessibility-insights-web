@@ -280,6 +280,7 @@ export class ActionCreator {
     ): Promise<void> => {
         if (this.shouldEnableToggleOnDetailsViewOpen(payload.detailsViewType)) {
             this.enableToggleOnDetailsViewOpen(payload.detailsViewType, tabId);
+            this.enableToggleOnDetailsViewOpen(29, tabId);
         }
 
         await this.onPivotChildSelected(payload, tabId);

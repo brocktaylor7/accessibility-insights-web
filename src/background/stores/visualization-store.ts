@@ -169,16 +169,28 @@ export class VisualizationStore extends BaseStoreImpl<VisualizationStoreData> {
     };
 
     private onEnableVisualization = (payload: ToggleActionPayload): void => {
-        this.enableTest(payload, false);
+        this.enableTest(payload, false, 0);
     };
 
     private onEnableVisualizationWithoutScan = (payload: ToggleActionPayload): void => {
-        this.enableTest(payload, true);
+        this.enableTest(payload, true, 0);
     };
 
-    private enableTest(payload: ToggleActionPayload, skipScanning: boolean): void {
+    private async enableTest(
+        payload: ToggleActionPayload,
+        skipScanning: boolean,
+        waitTime: number,
+    ): Promise<void> {
         console.trace('enableTest', payload);
         if (this.state.scanning != null) {
+            console.log('Scanning in progress, skipping enableTest', payload);
+            const timeout = 5000;
+            if (waitTime >= timeout) {
+                return;
+            }
+            await new Promise(_ =>
+                setTimeout(() => this.enableTest(payload, skipScanning, waitTime + 200), 200),
+            );
             // do not change state if currently scanning, not even the toggle
             return;
         }
@@ -221,13 +233,13 @@ export class VisualizationStore extends BaseStoreImpl<VisualizationStoreData> {
         const pivotChildUpdated = this.updateSelectedPivotChildUnderPivot(payload);
         const pivotUpdated = this.updateSelectedPivot(pivot);
         if (pivotChildUpdated || pivotUpdated) {
-            const newPayload = {
-                test: EnumHelper.getNumericValues(VisualizationType)[
-                    payload.detailsViewType
-                ] as VisualizationType,
-            };
+            // const newPayload = {
+            //     test: EnumHelper.getNumericValues(VisualizationType)[
+            //         payload.detailsViewType
+            //     ] as VisualizationType,
+            // };
             this.disableAllTests();
-            this.enableTest(newPayload, false);
+            // this.enableTest(newPayload, false, 0);
             this.emitChanged();
         }
     };
