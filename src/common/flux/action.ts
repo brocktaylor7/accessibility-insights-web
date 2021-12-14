@@ -24,6 +24,8 @@ export class Action<TPayload> {
 
         try {
             this.listeners.forEach((listener: (payload: TPayload) => void) => {
+                // console.log('listener:', listener);
+                // console.log('payload:', payload);
                 listener(payload);
             });
         } finally {

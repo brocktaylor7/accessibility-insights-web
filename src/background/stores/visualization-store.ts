@@ -111,6 +111,9 @@ export class VisualizationStore extends BaseStoreImpl<VisualizationStoreData> {
     };
 
     private toggleTestOff(test: VisualizationType): boolean {
+        if (test === 1 || test === 29) {
+            console.trace('toggleTestOff', test);
+        }
         let isStateChanged = false;
         if (this.state.scanning != null) {
             return isStateChanged;
@@ -174,6 +177,7 @@ export class VisualizationStore extends BaseStoreImpl<VisualizationStoreData> {
     };
 
     private enableTest(payload: ToggleActionPayload, skipScanning: boolean): void {
+        console.trace('enableTest', payload);
         if (this.state.scanning != null) {
             // do not change state if currently scanning, not even the toggle
             return;
@@ -217,7 +221,13 @@ export class VisualizationStore extends BaseStoreImpl<VisualizationStoreData> {
         const pivotChildUpdated = this.updateSelectedPivotChildUnderPivot(payload);
         const pivotUpdated = this.updateSelectedPivot(pivot);
         if (pivotChildUpdated || pivotUpdated) {
+            const newPayload = {
+                test: EnumHelper.getNumericValues(VisualizationType)[
+                    payload.detailsViewType
+                ] as VisualizationType,
+            };
             this.disableAllTests();
+            this.enableTest(newPayload, false);
             this.emitChanged();
         }
     };

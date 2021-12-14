@@ -35,6 +35,7 @@ export const DetailsListIssuesView = NamedFC<DetailsListIssuesViewProps>(
         const scanData = props.configuration.getStoreData(props.visualizationStoreData.tests);
         const isScanning: boolean = props.visualizationStoreData.scanning !== null;
         const title = props.configuration.displayableData.title;
+        console.log(`${title}`, scanData);
         const subtitle = props.configuration.displayableData.subtitle;
 
         const stepsText = (): string => {

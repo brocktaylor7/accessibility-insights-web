@@ -3,7 +3,6 @@
 import { CardSelectionActions } from 'background/actions/card-selection-actions';
 import { NeedsReviewCardSelectionActions } from 'background/actions/needs-review-card-selection-actions';
 import { SidePanelActions } from 'background/actions/side-panel-actions';
-import { UnifiedScanResultActions } from 'background/actions/unified-scan-result-actions';
 import { TestMode } from 'common/configs/test-mode';
 import { VisualizationConfigurationFactory } from 'common/configs/visualization-configuration-factory';
 import * as TelemetryEvents from 'common/extension-telemetry-events';
@@ -48,7 +47,6 @@ export class ActionCreator {
     private inspectActions: InspectActions;
     private cardSelectionActions: CardSelectionActions;
     private needsReviewCardSelectionActions: NeedsReviewCardSelectionActions;
-    private unifiedScanResultActions: UnifiedScanResultActions;
     private sidePanelActions: SidePanelActions;
 
     constructor(
@@ -66,7 +64,6 @@ export class ActionCreator {
         this.inspectActions = actionHub.inspectActions;
         this.cardSelectionActions = actionHub.cardSelectionActions;
         this.needsReviewCardSelectionActions = actionHub.needsReviewCardSelectionActions;
-        this.unifiedScanResultActions = actionHub.scanResultActions;
         this.sidePanelActions = actionHub.sidePanelActions;
     }
 
@@ -257,6 +254,7 @@ export class ActionCreator {
         payload: ScanCompletedPayload<any>,
         tabId: number,
     ): Promise<void> => {
+        console.trace('onAdHocScanCompleted', payload);
         const telemetryEventName = TelemetryEvents.ADHOC_SCAN_COMPLETED;
         this.telemetryEventHandler.publishTelemetry(telemetryEventName, payload);
         this.visualizationScanResultActions.scanCompleted.invoke(payload);
@@ -316,6 +314,7 @@ export class ActionCreator {
         payload: OnDetailsViewOpenPayload,
         tabId: number,
     ): Promise<void> => {
+        console.log('onPivotChildSelected', payload);
         this.sidePanelActions.closeSidePanel.invoke('PreviewFeatures');
         this.visualizationActions.updateSelectedPivotChild.invoke(payload);
         await this.detailsViewController
@@ -325,6 +324,7 @@ export class ActionCreator {
     };
 
     private onDetailsViewPivotSelected = (payload: OnDetailsViewPivotSelected): void => {
+        console.log('onDetailsViewPivotSelected', payload);
         this.visualizationActions.updateSelectedPivot.invoke(payload);
         this.telemetryEventHandler.publishTelemetry(
             TelemetryEvents.DETAILS_VIEW_PIVOT_ACTIVATED,
@@ -335,7 +335,6 @@ export class ActionCreator {
     private onVisualizationToggle = (payload: VisualizationTogglePayload): void => {
         const telemetryEvent = this.adHocTestTypeToTelemetryEvent[payload.test];
         this.telemetryEventHandler.publishTelemetry(telemetryEvent, payload);
-        this.unifiedScanResultActions.startScan.invoke(null);
 
         if (payload.enabled) {
             this.visualizationActions.enableVisualization.invoke(payload);
@@ -346,9 +345,8 @@ export class ActionCreator {
 
     private onRescanVisualization = (payload: RescanVisualizationPayload) => {
         this.visualizationActions.disableVisualization.invoke(payload.test);
-        this.visualizationActions.enableVisualization.invoke(payload);
         this.visualizationActions.rescanVisualization.invoke(payload.test);
-        this.unifiedScanResultActions.startScan.invoke(null);
+        this.visualizationActions.enableVisualization.invoke(payload);
         this.telemetryEventHandler.publishTelemetry(TelemetryEvents.RESCAN_VISUALIZATION, payload);
     };
 
